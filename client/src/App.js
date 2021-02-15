@@ -1,9 +1,10 @@
 import React from 'react';
+import DateRangePicker from './components/DateRangePicker';
 
 function App() {
   return (
-    <div className='font-mono'>
-      <h1>Hello CRUD</h1>
+    <div className="font-mono">
+      <DateRangePicker />
     </div>
   );
 }
