@@ -28,13 +28,13 @@ app.get('/api/get', (req, res) => {
 
 });
 
-app.post('/api/insert ', (req, res) => {
+app.post('/api/insert', (req, res) => {
 
   const movieName = req.body.movieName;
   const movieReview = req.body.movieReview;
 
-  const insertSql = 'INSERT INTO movie_reviews (movieName, movieReview) VALUES (?,?);';
-  db.query(insertSql, [movieName, movieReview], (err, result) => {
+  const sqlInsert = 'INSERT INTO movie_reviews (movieName, movieReview) VALUES (?,?);';
+  db.query(sqlInsert, [movieName, movieReview], (err, result) => {
     console.log(result);
   });
 });
