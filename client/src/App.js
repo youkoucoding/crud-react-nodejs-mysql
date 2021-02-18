@@ -10,17 +10,23 @@ function App() {
   useEffect(() => {
     Axios.get("http://localhost:5000/api/get").then((response) => {
       setMovieList(response.data);
-      console.log(response.data);
     });
   }, []);
 
   const submitReview = () => {
     Axios.post('http://localhost:5000/api/insert', {
       movieName: movieName, movieReview: movieReview
-    }).then(() => {
-      alert('success inserted!');
     });
+    setMovieList([
+      ...movieList,
+      { movieName: movieName, movieReview: movieReview },
+    ]);
   };
+
+  const deleteReview = (movie) => {
+    Axios.delete(`http://localhost:5000/api/delete/${movie}`);
+  };
+
 
   return (
     <div className="flex flex-col font-mono pt-5 m-7">
@@ -52,7 +58,15 @@ function App() {
       </div>
       {movieList.map((val) => {
         return (
-          <div>MoveName: {val.movieName} || movieReview:{val.movieReview}
+          <div className="flex place-items-center mt-2 p-3 border-yellow-500 border-2 rounded-md">
+            <div>MoveName: {val.movieName}</div>
+            <div> movieReview:{val.movieReview}</div>
+            <button
+              className="flex items-center justify-center m-3 rounded-md border-2"
+              onClick={() => { deleteReview(val.movieName); }}
+            >Delete</button>
+            <input type="text" className="border-2 m-2" />
+            <button className="flex items-center justify-center m-3 rounded-md border-2">Update</button>
           </div>
         );
       })}
@@ -60,4 +74,6 @@ function App() {
   );
 }
 
+
 export default App;
+
